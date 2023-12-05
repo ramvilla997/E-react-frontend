@@ -1,0 +1,28 @@
+.profile-page {
+    padding: 20px;
+    color: #0288D1;
+  }
+
+  .h2{
+    color: #0288D1;
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+  
+  .user-table th {
+    font-size: 10px; /* Adjust the font size as needed */
+    padding: 2px; /* Adjust the padding as needed */
+    color: #FFFFFF;
+    background-color: #2C2C2C;
+  }
+  
+  .user-table td {
+    font-size: 10px;
+    padding: 5px; /* Adjust the padding as needed */
+    color: #2C2C2C;
+  }
+  
+  
