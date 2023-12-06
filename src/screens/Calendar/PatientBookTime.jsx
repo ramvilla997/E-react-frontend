@@ -2,10 +2,10 @@ import moment from 'moment';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, DatePicker, Card, Flex, Empty, Modal, Spin } from 'antd';
-import { ExclamationCircleFilled } from '@ant-design/icons'
-import { patientSearchForTimeSegments, patientBookTime } from '../../api/calendar';
+import { patientSearchForTimeSegments } from '../../api/calendar';
 import dayjs from 'dayjs';
 import { readLoginData } from '../../loginData';
+import PatientBookTimeDialog from './PatientBookTimeDialog';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
@@ -40,6 +40,9 @@ const PatientBookTime = (props) => {
   let [ currentEnd, setCurrentEnd ] = useState(moment().endOf('week'));
   let [ data, setData ] = useState([]);
 
+  let [ dialogOpen, setDialogOpen ] = useState(false);
+  let [ dialogContent, setDialogContent ] = useState(null);
+
   const setCurrentRange = (start, end) => {
     setCurrentStart(start);
     setCurrentEnd(end);
@@ -65,29 +68,38 @@ const PatientBookTime = (props) => {
     fetchData();
   }
 
-  const handleBookTime = (event) => {
-    const startString = moment(event.start).format(dateFormat);
-    const endString = moment(event.end).format(dateFormat);
-    Modal.confirm({
-      title: 'Are you confirming your reservation for this time slot?',
-      icon: <ExclamationCircleFilled />,
-      content: `Doctor: ${event.doctor.name}\nFrom: ${startString}\nTo:${endString}`,
-      onOk: async () => {
-        await patientBookTime(loginData, event.id, loginData.name);
-        navigate('/calendar');
-      },
-      onCancel: () => {},
-    });
+  const closeDialog = () => {
+    setDialogOpen(false);
+    setDialogContent(null);
   }
 
-  return <div>
+  const handleOk = () => {
+    closeDialog();
+    navigate('/calendar');
+  }
+
+  const handleBookTime = (event) => {
+    console.log(event);
+    setDialogContent({
+      id: event.id,
+      doctor: event.doctor.name,
+      start: event.start,
+      end: event.end,
+      statement: event.description,
+      description: loginData.name,
+    });
+    setDialogOpen(true);
+  }
+
+  return <>
       <h1>Book Time</h1>
       Please select the start and end date below.<br/>
       <DatePicker defaultValue={dayjs(currentStart.toDate())} onChange={handleChange} picker="week" />
       <Spin spinning={loading}>
         <AvailableTimeSegmentList data={data} onBookTime={handleBookTime}/>
       </Spin>
-    </div>;
+      {dialogOpen ? <PatientBookTimeDialog {...dialogContent} onOk={handleOk} onCancel={closeDialog}/> : null}
+    </>;
 };
 
 export default PatientBookTime;
