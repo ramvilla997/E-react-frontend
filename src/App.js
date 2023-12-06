@@ -47,6 +47,7 @@ import ThyroidML from './screens/eir_thyroid_disease_checker';
 import Liver_disease_ML from './screens/liver_prediction_model';
 import Pneumoniaml from './screens/Pneumoniaml';
 import Bonecancerml from './screens/Bonecancerml';
+import HepatitisML from './screens/hepatitis.jsx';
 import DoctorLayout from './layout/DoctorLayout';
 import Dashboard from './screens/DoctorPanel/DoctorDashboard';
 import { DoctorPatients } from './screens/DoctorPanel/DoctorPatients';
@@ -189,10 +190,10 @@ class App extends Component {
       } catch (err) {
         console.error('Error with signing out user', err);
       }
+      e.preventDefault();
+      e.returnValue = '';
+      return 'Are you sure you want to leave? Your changes may not be saved.';
     }
-    e.preventDefault();
-    e.returnValue = '';
-    return 'Are you sure you want to leave? Your changes may not be saved.';
   }
   componentWillUnmount(){
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
@@ -254,6 +255,7 @@ class App extends Component {
           <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
           <Route path="/Pneumoniaml" element={<Pneumoniaml />} />
           <Route path="/Bonecancerml" element={<Bonecancerml />} />
+          <Route path="/hepatitis" element={<HepatitisML />} />
           <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
           <Route path="/heartstroke" element={<HeartStroke />} />
           <Route path="/PsychologyPrediction" element={<PsychologyPrediction />} />
@@ -265,6 +267,7 @@ class App extends Component {
           <Route path="/specialities" element={<Specialities />} />
           <Route path="/serviceHome" element={<ServicesHomePage/>}/>
           <Route path="/services" element={<HealthServices/>}/>
+          <Route path="/bookAppServices" element={<Services/>}/>
           <Route path="/doctorServices" element={<DoctorService/>} />
           <Route path="/patientServices" element={<PatientService/>} />
           <Route path="/services" element={<Services />} />
