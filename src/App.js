@@ -40,6 +40,7 @@ import ProfilePage from './screens/profile.js';
 import EmergencyLocations from './screens/EmergencyLocations';
 import 'tachyons';
 import SkinCancerMlPage from './screens/skinCancerMlPage';
+import BreastDisease from './screens/Prediction/BreastDisease/BreastDisease';
 import BreastCancerML from './screens/eir_breast_cancer_checker';
 import BreastCancerPredictionML from './screens/breast_cancer_prediction';
 import ThyroidDiseaseML from './screens/eir_thyroid_disease_checker';
@@ -85,6 +86,7 @@ import { readLoginData, clearLoginData, isTempLogin, writeLoginData } from './lo
 import "./App.css";
 import SkinDiseasesMlPage from './screens/SkinDiseasesMlPage.js';
 import ViewRating from './screens/ViewRating';
+import DiabeticML from './screens/DiabeticML.js';
 
 
 import Analytic from './screens/analytics.js';
@@ -250,6 +252,7 @@ class App extends Component {
           <Route path="/TasksList" element={<TasksList />} />
           <Route path="/kidneystoneml" element={<KidneyStoneML />} />
           <Route path="/chronickidneyml" element={<Ckdml />} />
+          <Route path="/BreastDisease" element={<BreastDisease />} />
           <Route path="/breastcancerml" element={<BreastCancerML />} />
           <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML />} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
@@ -301,6 +304,8 @@ class App extends Component {
           <Route path="/calendar/timesegment/:id" element={<TimeSegmentDetail />} />
           <Route path="/calendar/booktime" element={<PatientBookTime />} />
           <Route path="/Analytic" element={<Analytic />}/>
+          <Route path="/DiabeticML" element={<DiabeticML />}/>
+
           
         </Routes>
         <Footer status ={this.state.user.type} />
