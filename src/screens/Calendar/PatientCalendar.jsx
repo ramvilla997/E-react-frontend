@@ -5,36 +5,43 @@ import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { patientGetCalendar } from '../../api/calendar';
 import { readLoginData } from '../../loginData';
+import PatientBookTimeDialog from './PatientBookTimeDialog';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
-const getAppointmentState = (status) => {
-  if(status < 0){
-    return 'Cancelled';
-  }else if(status === 1){
-    return 'Approved';
-  }else{
-    return 'PendingApproval';
+const getAppointmentState = (event) => {
+  if(event.status < 0){
+    if(event.appointmentStatus === 1){
+      return 'Approved'
+    }else{
+      return 'AlreadyBookedByOthers'
+    }
+  }else if(event.status === 0){
+    return 'Free'
+  }else if(event.status > 0){
+    if(event.appointmentStatus === 0){
+      return 'PendingApproval'
+    }else{
+      return 'BookedByOthers'
+    }
   }
 };
 
-const getBackgroundColorFromStatus = (status) => {
-  if(status < 0){
-    return 'grey';
-  }else if(status === 1){
-    return 'green';
-  }else{
-    return 'orange';
-  }
-}
-
-const getColorFromStatus = (status) => {
-  if(status < 0){
-    return 'black';
-  }else if(status === 1){
-    return 'white';
-  }else{
-    return 'white';
+const getColorFromStatus = (event) => {
+  if(event.status < 0){
+    if(event.appointmentStatus === 1){
+      return { background: 'DodgerBlue', text: 'white' };
+    }else{
+      return { background: 'grey', text: 'black' };
+    }
+  }else if(event.status === 0){
+    return { background: 'Chartreuse', text: 'black' };
+  }else if(event.status > 0){
+    if(event.appointmentStatus === 0){
+      return { background: 'DarkOrange', text: 'white' };
+    }else{
+      return { background: 'DarkSeaGreen', text: 'white' };
+    }
   }
 }
 
@@ -46,6 +53,7 @@ const TimeSegmentsView = (props) => {
     title: e.description,
     start: moment(e.start).toDate(),
     end: moment(e.end).toDate(),
+    status: e.status,
     appointmentStatus: e.appointmentStatus,
     rawData: e,
   }));
@@ -53,10 +61,10 @@ const TimeSegmentsView = (props) => {
     console.log("event", event);
     return {
       style: {
-        backgroundColor: getBackgroundColorFromStatus(event.appointmentStatus),
+        backgroundColor: getColorFromStatus(event).background,
         borderRadius: '0px',
         opacity: 0.8,
-        color: getColorFromStatus(event.appointmentStatus),
+        color: getColorFromStatus(event).text,
         border: '0px',
         display: 'block',
       }
@@ -88,6 +96,9 @@ const PatientCalendar = (props) => {
   let [ data, setData ] = useState([]);
   let [ currentStart, setCurrentStart ] = useState(moment().startOf('week'));
   let [ currentEnd, setCurrentEnd ] = useState(moment().endOf('week'));
+
+  let [ dialogOpen, setDialogOpen ] = useState(false);
+  let [ dialogContent, setDialogContent ] = useState(null);
 
   const setCurrentRange = (start, end) => {
     setCurrentStart(start);
@@ -126,19 +137,48 @@ const PatientCalendar = (props) => {
     fetchData();
   }
 
+  
+  const closeDialog = () => {
+    setDialogOpen(false);
+    setDialogContent(null);
+  }
+
+  const handleOk = () => {
+    closeDialog();
+    setNeedLoad(true);
+  }
+
+  const handleBookTime = (event) => {
+    console.log(event);
+    setDialogContent({
+      id: event.id,
+      doctor: event.doctor.name,
+      start: event.start,
+      end: event.end,
+      statement: event.description,
+      description: loginData.name,
+    });
+    setDialogOpen(true);
+  }
+
   const handleSelectEvent = (event) => {
     const data = event.rawData;
     console.log(data);
-    const startString = moment(data.start).format(dateFormat);
-    const endString = moment(data.end).format(dateFormat);
-    Modal.info({
-      title: `Your appointment request with ${data.doctor.name}`,
-      content: `From: ${startString}\nTo:${endString}\nStatus:${getAppointmentState(data.appointmentStatus)}\nDescription:${data.description}`,
-    });
+    if(data.status >= 0 && data.appointmentStatus === null){
+      handleBookTime(data);
+    }else{
+      const startString = moment(data.start).format(dateFormat);
+      const endString = moment(data.end).format(dateFormat);
+      Modal.info({
+        title: `Time segment of ${data.doctor.name}`,
+        content: <p>From: {startString}<br/>To:{endString}<br/>Status:{getAppointmentState(data)}<br/>Description:{data.description}</p>,
+      });
+    }
   }
 
   return <Spin spinning={loading}>
       <TimeSegmentsView data={data} onRangeChange={handleRangeChange} onSelectEvent={handleSelectEvent} />
+      {dialogOpen ? <PatientBookTimeDialog {...dialogContent} onOk={handleOk} onCancel={closeDialog}/> : null}
     </Spin>;
 }
 

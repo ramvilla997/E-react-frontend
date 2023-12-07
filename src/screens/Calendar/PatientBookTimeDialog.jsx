@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React, { useState } from 'react';
-import { Modal, Radio } from 'antd';
+import { Input, Modal } from 'antd';
 
-import { doctorCreateAvailableTimeSegment } from '../../api/calendar';
+import { patientBookTime } from '../../api/calendar';
 import { readLoginData } from '../../loginData';
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
@@ -10,37 +10,43 @@ const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const ModalContent = (props) => {
   const start = moment(props.start).format(dateFormat);
   const end = moment(props.end).format(dateFormat);
-  const onStart = (e) => {
-    props.onChange({ start: e.target.value });
-  };
-  const onEnd = (e) => {
-    props.onChange({ end: e.target.value });
-  };
   const onDescription = (e) => {
     props.onChange({ description: e.target.value });
   };
   
   return <>
     <form>
+      <label for="id">ID:</label><br/>
+      <input type="text" id="id" name="id" value={props.id} disabled/><br/>
       <label for="doctor">Doctor:</label><br/>
       <input type="text" id="doctor" name="doctor" value={props.doctor} disabled/><br/>
       <label for="start">Start:</label><br/>
-      <input type="text" id="start" name="start" value={start} onChange={onStart}/><br/>
+      <input type="text" id="start" name="start" value={start} disabled/><br/>
       <label for="end">End:</label><br/>
-      <input type="text" id="end" name="end" value={end} onChange={onEnd}/><br/>
-      <label for="description">Descrption:</label><br/>
-      <input type="text" id="description" name="description" value={props.description} onChange={onDescription}/><br/>
+      <input type="text" id="end" name="end" value={end} disabled/><br/>
+      <label for="end">Doctor's Statement:</label><br/>
+      <input type="text" id="statement" name="statement" value={props.statement} disabled/><br/>
+      <label for="description">Reason:</label><br/>
+      <Input.TextArea
+        value={props.description}
+        onChange={onDescription}
+        placeholder="Reason"
+        autoSize={{ minRows: 1 }}
+      />
     </form>
   </>;
 };
 
-const CreateAvailableTimeSegments = (props) => {
+const PatientBookTimeDialog = (props) => {
   const loginData = readLoginData();
 
   const [ formContent, setFormContent ] = useState({
+    id: props.id,
+    doctor: props.doctor,
     start: props.start,
     end: props.end,
-    description: loginData.name,
+    statement: props.statement,
+    description: props.description,
   });
 
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -52,10 +58,9 @@ const CreateAvailableTimeSegments = (props) => {
   const handleOk = () => {
     setConfirmLoading(true);
     (async () => {
-      await doctorCreateAvailableTimeSegment(
+      await patientBookTime(
         loginData,
-        moment(formContent.start).toDate(),
-        moment(formContent.end).toDate(),
+        props.id,
         formContent.description);
       props.onOk();
     })();
@@ -63,24 +68,17 @@ const CreateAvailableTimeSegments = (props) => {
 
   return (
     <Modal
-      title="Create Available Time Segments"
+      title="Book Time for Appointment"
       open={true}
       onOk={handleOk}
       confirmLoading={confirmLoading}
       onCancel={props.onCancel}
     >
-      <Radio.Group onChange={(e) => props.onType(e.target.value)} defaultValue={props.type}>
-        <Radio.Button value={1}>Task</Radio.Button>
-        <Radio.Button value={2}>Available Time Segment</Radio.Button>
-      </Radio.Group>
       <ModalContent
-        doctor={loginData.name}
-        start={formContent.start}
-        end={formContent.end}
-        description={formContent.description}
+        {...formContent}
         onChange={handleFormChange}/>
     </Modal>
   );
 };
 
-export default CreateAvailableTimeSegments;
+export default PatientBookTimeDialog;
