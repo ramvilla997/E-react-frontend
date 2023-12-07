@@ -74,8 +74,8 @@ import ServicesHomePage from './components/services/ServicesHomePage';
 import HealthServices from './components/services/HealthServices';
 import DoctorService from './components/services/DoctorService';
 import PatientService from './components/services/PatientService';
-
-
+import HeartFail from './screens/HeartFail';
+import BrainStroke from './screens/BrainStroke';
 import VoiceRecoginition from "./screens/VoiceRecoginition.js";
 import VideoBackground from './styles/screens/VideoBackground';
 import Chatbot from './screens/Chatbot/Chatbot';
@@ -257,6 +257,8 @@ class App extends Component {
           <Route path="/breastcancerpredictionml" element={<BreastCancerPredictionML />} />
           <Route path="/thyroidDiseaseml" element={<ThyroidML />} />
           <Route path="/Pneumoniaml" element={<Pneumoniaml />} />
+          <Route path="/heartfailure" element={<HeartFail />} />
+          <Route path="/brainstroke" element={<BrainStroke />} />
           <Route path="/Bonecancerml" element={<Bonecancerml />} />
           <Route path="/hepatitis" element={<HepatitisML />} />
           <Route path="/heartdiseaseml" element={<Heartdiseaseml />} />
