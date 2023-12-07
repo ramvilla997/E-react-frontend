@@ -24,7 +24,8 @@ function Searchresult() {
   const goToheartdisease = () => navigate("/Heartdiseaseml", { state: dataskin });
   const goTohPsychologyPrediction = () => navigate("/PsychologyPrediction", { state: dataskin });
   const goToDiabeticDetection = () => navigate("/DiabeticML", { state: dataskin });
-
+  const goToHeartFail = () => navigate("/heartfailure", {state: dataskin });
+  const goToBrainStroke = () => navigate("/brainstroke", {state: dataskin });
   const goToBreastDisease = () => navigate('/BreastDisease', { state: dataskin });
 
   return (
@@ -160,6 +161,20 @@ function Searchresult() {
             <p>Detecting skin diseases using ML</p>
             <button class="button button5" onClick={() => navigate('/skinCancerDiseasesPage')}>Go</button>
           </div>
+          <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Heart Failure Prediction</h3>
+        <p>Heart failure DL model with 94% accuracy</p>
+        <button class="button button5" onClick={goToHeartFail}> go</button>
+      </div>
+
+      <div class="service">
+        <i class="ri-macbook-line"></i>
+        <h3>Brain Stroke Prediction</h3>
+        <p>Brain Stroke DL Model with 97% accuracy</p>
+        <button class="button button5" onClick={goToBrainStroke}> go</button>
+      </div>
+          
         </div>
         <div class="row">
           <div class="service">
