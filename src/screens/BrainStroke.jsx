@@ -12,8 +12,7 @@ const tableColumn = {
     Residence_type: "Residence Type",
     avg_glucose_level: "Average Glucose Level",
     bmi: "BMI",
-    smoking_status: "Smoking Status",
-    //action: "",
+    smoking_status: "Smoking Status"
 };
 
 const API_ROOT = `https://e-react-node-backend-22ed6864d5f3.herokuapp.com`;  //TODO: Need to replace with the backend server address
