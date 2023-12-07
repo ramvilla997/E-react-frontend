@@ -9,7 +9,8 @@ import { readLoginData } from '../../loginData';
 import CreateAvailableTimeSegments from './CreateAvailableTimeSegments';
 import AddTask from '../DoctorTasks/AddTask';
 
-const getBackgroundColorFromStatus = (status) => {
+const getBackgroundColorFromStatus = (type, status) => {
+  if(type === 1){ return 'MediumSlateBlue' }
   if(status > 0){
     return 'DarkOrange';
   }else if(status < 0){
@@ -19,7 +20,8 @@ const getBackgroundColorFromStatus = (status) => {
   }
 }
 
-const getColorFromStatus = (status) => {
+const getColorFromStatus = (type, status) => {
+  if(type === 1){ return 'white' }
   if(status > 0){
     return 'black';
   }else if(status < 0){
@@ -44,10 +46,10 @@ const TimeSegmentsView = (props) => {
     console.log("event", event);
     return {
       style: {
-        backgroundColor: getBackgroundColorFromStatus(event.status),
+        backgroundColor: getBackgroundColorFromStatus(event.type, event.status),
         borderRadius: '0px',
         opacity: 0.8,
-        color: getColorFromStatus(event.status),
+        color: getColorFromStatus(event.type, event.status),
         border: '0px',
         display: 'block',
       }
