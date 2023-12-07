@@ -12,6 +12,7 @@ function DoctorLayout(userInfo) {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
     const doctor_id = userInfo.doctorInfo.id;
+    console.log("Logged In", userInfo)
 
     if (userInfo.doctorInfo.type !== "Doctor") {
         return <Navigate to="/" />;
