@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Avatar, List, Space, Button, Select } from 'antd';
 import { Link } from 'react-router-dom';
+import { BASE_URL } from "../../constants";
 
 const { Option } = Select;
 
@@ -22,7 +23,7 @@ class TasksList extends Component {
 
     fetchAllTasks = () => {
         axios
-            .get(`https://e-react-node-backend-22ed6864d5f3.herokuapp.com/api/users/tasks?filter=${this.state.filter}`)
+            .get(`${BASE_URL}/api/users/tasks?filter=${this.state.filter}`)
             .then((response) => {
                 this.setState({
                     tasks: response.data,

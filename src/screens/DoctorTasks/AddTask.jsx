@@ -1,11 +1,30 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { Input, Modal, Radio } from "antd";
 import moment from 'moment';
-import React, { useState } from 'react';
-import { Modal, Radio } from 'antd';
-
-import { doctorCreateAvailableTimeSegment } from '../../api/calendar';
+import { BASE_URL } from '../../constants';
 import { readLoginData } from '../../loginData';
+import PatientSelector from "./PatientSelector";
 
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
+
+const createTask = (doctor, state) => {
+  axios
+    .post(`${BASE_URL}/api/users/tasks/add`, {
+      Doctor: doctor,
+      Patient: state.patient,
+      Start: new Date(state.start).toISOString(),
+      End: new Date(state.end).toISOString(),
+      Description: state.description,
+    })
+    .then((response) => {
+      Modal.success({ content: "Task added successfully!" });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 
 const ModalContent = (props) => {
   const start = moment(props.start).format(dateFormat);
@@ -16,31 +35,43 @@ const ModalContent = (props) => {
   const onEnd = (e) => {
     props.onChange({ end: e.target.value });
   };
+  const onPatient = (e) => {
+    props.onChange({ patient: e });
+  };
   const onDescription = (e) => {
     props.onChange({ description: e.target.value });
   };
-  
+
   return <>
     <form>
       <label for="doctor">Doctor:</label><br/>
       <input type="text" id="doctor" name="doctor" value={props.doctor} disabled/><br/>
+      <label for="patient">Patient:</label><br/>
+      <PatientSelector value={props.patient} onChange={onPatient}/><br/>
       <label for="start">Start:</label><br/>
       <input type="text" id="start" name="start" value={start} onChange={onStart}/><br/>
       <label for="end">End:</label><br/>
       <input type="text" id="end" name="end" value={end} onChange={onEnd}/><br/>
       <label for="description">Descrption:</label><br/>
-      <input type="text" id="description" name="description" value={props.description} onChange={onDescription}/><br/>
+      <Input.TextArea
+        id="description"
+        name="description"
+        placeholder="Description"
+        value={props.description}
+        onChange={onDescription}
+        autoSize={{ minRows: 3 }}
+      /><br/>
     </form>
   </>;
 };
 
-const CreateAvailableTimeSegments = (props) => {
+const AddTask = (props) => {
   const loginData = readLoginData();
-
   const [ formContent, setFormContent ] = useState({
+    patient: undefined,
     start: props.start,
     end: props.end,
-    description: loginData.name,
+    description: "",
   });
 
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -52,18 +83,16 @@ const CreateAvailableTimeSegments = (props) => {
   const handleOk = () => {
     setConfirmLoading(true);
     (async () => {
-      await doctorCreateAvailableTimeSegment(
-        loginData,
-        moment(formContent.start).toDate(),
-        moment(formContent.end).toDate(),
-        formContent.description);
+      await createTask(
+        loginData.id,
+        formContent);
       props.onOk();
     })();
   };
 
   return (
     <Modal
-      title="Create Available Time Segments"
+      title="Doctor Task Management System"
       open={true}
       onOk={handleOk}
       confirmLoading={confirmLoading}
@@ -75,12 +104,10 @@ const CreateAvailableTimeSegments = (props) => {
       </Radio.Group>
       <ModalContent
         doctor={loginData.name}
-        start={formContent.start}
-        end={formContent.end}
-        description={formContent.description}
+        {...formContent}
         onChange={handleFormChange}/>
     </Modal>
   );
-};
+}
 
-export default CreateAvailableTimeSegments;
+export default AddTask;

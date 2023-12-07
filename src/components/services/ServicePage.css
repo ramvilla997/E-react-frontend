@@ -52,6 +52,7 @@
 }
 
 .service-button {
+  text-align: center;
   background-color: #00c49a;
   color: #fff;
   border: none;
