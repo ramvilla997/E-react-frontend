@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Input, Modal } from 'antd';
 
 import { patientBookTime } from '../../api/calendar';
 import { readLoginData } from '../../loginData';
@@ -27,7 +27,12 @@ const ModalContent = (props) => {
       <label for="end">Doctor's Statement:</label><br/>
       <input type="text" id="statement" name="statement" value={props.statement} disabled/><br/>
       <label for="description">Reason:</label><br/>
-      <input type="text" id="description" name="description" value={props.description} onChange={onDescription}/><br/>
+      <Input.TextArea
+        value={props.description}
+        onChange={onDescription}
+        placeholder="Reason"
+        autoSize={{ minRows: 1 }}
+      />
     </form>
   </>;
 };

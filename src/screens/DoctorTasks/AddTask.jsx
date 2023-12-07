@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Modal, Radio } from "antd";
+import { Input, Modal, Radio } from "antd";
 import moment from 'moment';
 import { BASE_URL } from '../../constants';
 import { readLoginData } from '../../loginData';
@@ -53,7 +53,14 @@ const ModalContent = (props) => {
       <label for="end">End:</label><br/>
       <input type="text" id="end" name="end" value={end} onChange={onEnd}/><br/>
       <label for="description">Descrption:</label><br/>
-      <input type="text" id="description" name="description" value={props.description} onChange={onDescription}/><br/>
+      <Input.TextArea
+        id="description"
+        name="description"
+        placeholder="Description"
+        value={props.description}
+        onChange={onDescription}
+        autoSize={{ minRows: 3 }}
+      /><br/>
     </form>
   </>;
 };

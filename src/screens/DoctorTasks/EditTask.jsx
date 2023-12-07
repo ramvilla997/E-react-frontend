@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from "moment";
 import backgroundImage from '../../assets/images/hospital.jpg';
-import { Button, Modal, Spin } from "antd";
+import { Button, Input, Modal, Spin } from "antd";
 import { BASE_URL } from "../../constants";
 import { readLoginData } from "../../loginData";
 import PatientSelector from "./PatientSelector";
@@ -126,12 +126,12 @@ function Tasks() {
               style={{ marginBottom: "10px", padding: "5px" }}
             />
             <label style={{ marginBottom: "5px", fontWeight: "bold" }}>Description:</label>
-            <input
-              type="text"
+            <Input.TextArea
               name="Description"
               placeholder="Description"
               value={state.Description}
               onChange={handleInputChange}
+              autoSize={{ minRows: 3 }}
               style={{ marginBottom: "10px", padding: "5px" }}
             />
           </div>
