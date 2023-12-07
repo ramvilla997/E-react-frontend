@@ -31,25 +31,25 @@ const LandingPageHome = () => {
     
     </div>
 
-    <div className="modal--header">
+    <div className="landing-body">
           {/* <div className="content"> */}
-          <h9 className="modal--header h9" style={{textAlign: 'center', 
+          <h2 className="landing-h2" style={{textAlign: 'center', 
           fontWeight: 'normal',textShadow: "1px 2px 1px rgb(10, 10, 10)" }} 
           >Revolutionzing Healthcare
-          </h9>
+          </h2>
 
       
           {/* </div> */}
           </div>
-    <div className="modal--header">
+    <div className="landing-body">
           {/* <div className="content"> */}
-          <h10 className="modal--header h10" style={{textAlign: 'center', 
+          <h2 className="landing-h2" style={{textAlign: 'center', 
           fontWeight: 'normal',textShadow: "1px 2px 1px rgb(10, 10, 10)" }} 
           >Explore Our Smart Digital Medicine Solutions<br/> 
           {/* Discover the Power of Smart Digital Medicine<br/> 
           Embracing the Possibilities of Smart Digital Healthcare<br/> 
           Revolutionzing Healthcare for a Connected Future */}
-          </h10>
+          </h2>
 
       
           {/* </div> */}

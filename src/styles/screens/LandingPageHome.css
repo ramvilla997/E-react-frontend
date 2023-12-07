@@ -26,7 +26,16 @@
     text-align: center;
     
 }
-
+.landing-body h2 {
+  /* position: absolute;
+  bottom: 10em;
+  left: 6em; */
+  font-size: 54px;
+  color: rgb(255, 255, 255); 
+  text-align: center;
+  
+  
+}
 
   
   .modal--mask {
@@ -126,9 +135,10 @@
     margin: 0;
     color: rgb(255, 255, 255); 
     font-size: 40px;
-    position: fixed;
-    bottom: 10em;
-    left: 10em;
+    position: absolute;
+    justify-content: center;
+    flex:1;
+    
   }
   .modal--body{
     margin: 0;

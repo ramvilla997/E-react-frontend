@@ -166,11 +166,10 @@
     color: var(--light);
   }
   .landingpage-container, .save-button2 {
-    position: relative;
-    bottom: 0rem;
-    left: 58.5rem;
-    padding: 10 1rem;
-    margin: 1rem auto auto 1;
+    position: static;
+    
+   
+    
     background: transparent;
     color: var(--light);
     font-weight: bold;
