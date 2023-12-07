@@ -11,11 +11,11 @@ import AddTask from '../DoctorTasks/AddTask';
 
 const getBackgroundColorFromStatus = (status) => {
   if(status > 0){
-    return 'orange';
+    return 'DarkOrange';
   }else if(status < 0){
-    return 'blue';
+    return 'DodgerBlue';
   }else{
-    return 'green';
+    return 'Chartreuse';
   }
 }
 
@@ -25,7 +25,7 @@ const getColorFromStatus = (status) => {
   }else if(status < 0){
     return 'white';
   }else{
-    return 'white';
+    return 'black';
   }
 }
 
