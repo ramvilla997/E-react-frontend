@@ -96,3 +96,17 @@ export const patientBookTime = async (loginData, id, description) => {
     console.error('Error fetching data:', error);
   }
 };
+
+export const getPatients = async (loginData) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/api/appointments/getPatients`, {
+      loginData,
+    });
+    if(response.data.status !== 'OK'){
+      throw new Error(response.data.status);
+    }
+    return response.data.result;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};

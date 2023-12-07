@@ -7,6 +7,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { doctorGetCalendar } from '../../api/calendar';
 import { readLoginData } from '../../loginData';
 import CreateAvailableTimeSegments from './CreateAvailableTimeSegments';
+import AddTask from '../DoctorTasks/AddTask';
 
 const getBackgroundColorFromStatus = (status) => {
   if(status > 0){
@@ -33,6 +34,7 @@ const TimeSegmentsView = (props) => {
   console.log("Data", props.data);
   const eventsList = props.data.map(e => ({
     id: e.id,
+    type: e.type,
     title: e.description,
     start: moment(e.start).toDate(),
     end: moment(e.end).toDate(),
@@ -69,6 +71,11 @@ const TimeSegmentsView = (props) => {
       />
     </>
   );
+}
+
+const CreateDoctorTask = (props) => {
+  console.log("CreateDoctorTask", props);
+  return (props.type === 1 ? <AddTask {...props}/> : <CreateAvailableTimeSegments {...props}/>);
 }
 
 const DoctorCalendar = (props) => {
@@ -119,12 +126,18 @@ const DoctorCalendar = (props) => {
   }
 
   // states for the modal
+  const [ type, setType ] = useState(2);
   const [ open, setOpen ] = useState(false);
   const [ start, setStart] = useState(moment().toDate());
   const [ end, setEnd ] = useState(moment().add(1, 'hour').toDate());
 
   const handleSelectEvent = (event) => {
-    navigate(`/calendar/timesegment/${event.id}`)
+    console.log(event);
+    if(event.type === 1){
+      navigate(`/Tasks/${event.id}`)
+    }else if(event.type === 2){
+      navigate(`/calendar/timesegment/${event.id}`)
+    }
   };
   
   const handleSelectSlot = (range) => {
@@ -148,11 +161,15 @@ const DoctorCalendar = (props) => {
     setOpen(false);
   };
 
+  const handleType = (type) => {
+    setType(type);
+  }
+
   return <>
       <Spin spinning={loading}>
         <TimeSegmentsView data={data} onRangeChange={handleRangeChange} onSelectSlot={handleSelectSlot} onSelectEvent={handleSelectEvent}/>
       </Spin>
-      { open ? <CreateAvailableTimeSegments start={start} end={end} onOk={handleOk} onCancel={handleCancel}/> : null }
+      { open ? <CreateDoctorTask type={type} onType={handleType} start={start} end={end} onOk={handleOk} onCancel={handleCancel}/> : null }
     </>;
 }
 

@@ -57,8 +57,9 @@ import { DoctorServices } from './screens/DoctorPanel/DoctorServices';
 import DoctorHelp from './screens/DoctorPanel/DoctorHelp';
 import HeartStroke from './screens/HeartStroke';
 import PsychologyPrediction from './screens/PsychologyPrediction';
-import Tasks from './screens/Tasks';
-import TasksList from './screens/TasksList';
+import AddTask from './screens/DoctorTasks/AddTask';
+import EditTask from './screens/DoctorTasks/EditTask';
+import TasksList from './screens/DoctorTasks/TasksList';
 import TestimonialsPage from './screens/TestimonialsPage'; // Import TestimonialsPage
 import Terms from './screens/terms';
 import Rights from './screens/rights';
@@ -247,7 +248,8 @@ class App extends Component {
           <Route path="/terms" element={<Terms />} />
           <Route path="/rights" element={<Rights />} />
           <Route path="/webform" element={<Webform />} />
-          <Route path="/Tasks/:id" element={<Tasks />} />
+          <Route path="/AddTask" element={<AddTask />} />
+          <Route path="/Tasks/:id" element={<EditTask />} />
           <Route path="/TasksList" element={<TasksList />} />
           <Route path="/kidneystoneml" element={<KidneyStoneML />} />
           <Route path="/chronickidneyml" element={<Ckdml />} />
