@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from 'react-router-dom';
+import moment from "moment";
 import backgroundImage from '../../assets/images/hospital.jpg';
 import { Button, Modal, Spin } from "antd";
 import { BASE_URL } from "../../constants";
 import { readLoginData } from "../../loginData";
 import PatientSelector from "./PatientSelector";
+
+const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 
 const findTask = async (id) => {
   const response = await axios.get(`${BASE_URL}/api/users/tasks/${id}`)
@@ -23,8 +26,8 @@ const updateTask = async (id, state) => {
   await axios.put(`${BASE_URL}/api/users/tasks/${id}`, {
     Patient: state.Patient,
     Description: state.Description,
-    Start: state.Start,
-    End: state.End,
+    Start: new Date(state.Start),
+    End: new Date(state.End),
   })
   Modal.success({ content: "Task updated successfully!" });
 };
@@ -52,7 +55,11 @@ function Tasks() {
   const loadData = async () => {
     setLoading(true);
     const result = await findTask(id);
-    setState(result);
+    setState({
+      ...result,
+      Start: moment(result.Start).format(dateFormat),
+      End: moment(result.End).format(dateFormat),
+    });
     setLoading(false);
   };
 
