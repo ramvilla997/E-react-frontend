@@ -53,6 +53,7 @@ import { DoctorPatients } from './screens/DoctorPanel/DoctorPatients';
 import { DocProfile } from './screens/DoctorPanel/DoctorProfile';
 import { DoctorMessages } from './screens/DoctorPanel/DoctorMessages';
 import { DoctorServices } from './screens/DoctorPanel/DoctorServices';
+import { DoctorReferrals } from './screens/DoctorPanel/DoctorReferrals.jsx';
 import DoctorHelp from './screens/DoctorPanel/DoctorHelp';
 import HeartStroke from './screens/HeartStroke';
 import PsychologyPrediction from './screens/PsychologyPrediction';
@@ -283,6 +284,7 @@ class App extends Component {
             <Route path="/doctor/messages" element={<DoctorMessages />} />
             <Route path="/doctor/services" element={<DoctorServices />} />
             <Route path="/doctor/help" element={<DoctorHelp />} />
+            <Route path="/doctor/referrals" element={<DoctorReferrals/>} />
           </Route>
           <Route path="/patient" element={<PatientLayout data={this.state.user} />}>
             <Route index element={<PatientPortal />} />

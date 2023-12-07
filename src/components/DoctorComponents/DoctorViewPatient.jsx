@@ -8,6 +8,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import { PatientMedicalHistory } from './PatientMedicalHistory';
 import MedicationLiquidTwoToneIcon from '@mui/icons-material/MedicationLiquidTwoTone';
 import { useReactToPrint }  from "react-to-print";
+import CreateReferralForm from './CreateReferralForm';
 
 export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
   // State Initialization
@@ -36,6 +37,8 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
   const prescriptionToPrintRef =useRef();
 
   const [prescriptions, setPrescriptions]= useState([]);
+  
+  const [showCreateReferralModal, setShowCreateReferralModal] = useState(false);
 
   
   const handleShowCreatePrescription = ()=>{
@@ -678,7 +681,7 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                       )}
                     </CardContent>
                   </Card>
-                  <Card sx={{mt:2}}>
+                  <Card sx={{mt:0}}>
                     <CardContent>
                     <Button fullWidth variant='outlined' onClick={handleShowCreatePrescription}> Create Prescription</Button>
                     <Modal open={showCreatePrescriptionModal} onClose={()=>setShowCreatePrescriptionModal(false)} >
@@ -797,8 +800,21 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
                           </Box>
                       </Modal>
                     </CardContent>
+                    <CardContent>
+                      <Button fullWidth variant='outlined'  onClick={()=>setShowCreateReferralModal(true)}> Create Referral</Button>
+                        <Modal open={showCreateReferralModal} onClose={() => setShowCreateReferralModal(false)}>
+                          <Box sx={styleMini}>
+                            <Card>
+                              <CardContent>
+                                <Typography variant='h6'>Create Referral</Typography>
+                                <CreateReferralForm onClose={() => setShowCreateReferralModal(false)} patientId={patientId} doctorId={doctorId} />
+                              </CardContent>
+                            </Card>
+                          </Box>
+                        </Modal>
+                     </CardContent>
                   </Card>
-                  <Card sx={{mt:2}}>
+          <Card sx={{mt:0}}>
           <CardContent>
             {/* Contact staff here */}
           <Button fullWidth variant='outlined'  onClick={()=>setShowContactStaffModal(true)}> Contact Staff</Button>
@@ -839,7 +855,12 @@ export function DoctorViewPatient({ open, onClose, patientId, doctorId }) {
           </Box>
       </Modal>
           </CardContent>
+        
         </Card>
+        {/* Create Referrals */}
+        <Card sx={{mt:2}}>
+         
+          </Card>
                 </Grid>
               </Grid>
             </Paper>

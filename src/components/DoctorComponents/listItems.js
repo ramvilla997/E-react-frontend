@@ -30,6 +30,12 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Planning" />
     </ListItemButton>
+    <ListItemButton component={Link} to={"/doctor/referrals"}>
+      <ListItemIcon>
+        <MedicalServicesIcon />
+      </ListItemIcon>
+      <ListItemText primary="Referrals" />
+    </ListItemButton>
     <ListItemButton component={Link} to={"/doctor/profile"}>
       <ListItemIcon>
         <AccountBoxIcon />
