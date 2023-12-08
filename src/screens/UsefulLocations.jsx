@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, Marker, InfoWindow, LoadScript } from "@react-google-maps/api";
-import { List, Button } from 'antd';
-import '../styles/screens/EmergencyLocations.css';
+import { List, Select } from 'antd';
+import '../styles/screens/UsefulLocations.css';
 
 const libraries = ['places', 'geometry'];
 
-function EmergencyLocations() {
+function UsefulLocations() {
   const [map, setMap] = useState(null);
   const [center, setCenter] = useState({ lat: 45.422, lng: -75.682 });
   const [markers, setMarkers] = useState([]);
@@ -21,7 +21,7 @@ function EmergencyLocations() {
         {
           location: center,
           radius: 5000,
-          type: [type], // search for type, 'hospital' or 'pharmacy'
+          keyword: [type]
         },
         (results, status) => {
           if (status === window.google.maps.places.PlacesServiceStatus.OK) {
@@ -64,18 +64,35 @@ function EmergencyLocations() {
 
   return (
     <div className="emergency-locations">
-      <h1 className="emergency-locations__title">Emergency Locations</h1>
+      <h1 className="emergency-locations__title">Healthcare Useful Locations</h1>
       <div className="emergency-locations__description">
         <p>
-          Locating the nearest hospital or pharmacy to you.
+          Locating the nearest healthcare useful locations to you.
         </p>
-        <div className="category-buttons">
-          <Button onClick={() => handleCategoryChange('hospital')} type={searchType === 'hospital' ? 'primary' : 'default'}>
-            Hospital
-          </Button>
-          <Button onClick={() => handleCategoryChange('pharmacy')} type={searchType === 'pharmacy' ? 'primary' : 'default'}>
-            Pharmacy
-          </Button>
+        <div className="category-select">
+          <Select
+            defaultValue="hospital"
+            style={{ width: 200 }}
+            onChange={handleCategoryChange}
+          >
+            <Select.Option value="hospital">Hospital</Select.Option>
+            <Select.Option value="pharmacy">Pharmacy</Select.Option>
+            <Select.Option value="clinic">Clinic</Select.Option>
+            <Select.Option value="walk_in_clinic">Walk in Clinic</Select.Option>
+            <Select.Option value="optometry">Optometry</Select.Option>
+            <Select.Option value="lab">Labs</Select.Option>
+            <Select.Option value="x_rays">X-rays</Select.Option>
+            <Select.Option value="ambulance">Ambulance</Select.Option>
+            <Select.Option value="medical_equipment">Medical Equipment</Select.Option>
+            <Select.Option value="psychologist">Psychologist</Select.Option>
+            <Select.Option value="social_worker">Social Worker</Select.Option>
+            <Select.Option value="vision_care">Vision Care</Select.Option>
+            <Select.Option value="massage_therapist">Massage Therapist</Select.Option>
+            <Select.Option value="physiotherapist">Physiotherapist</Select.Option>
+            <Select.Option value="chiropractor">Chiropractor</Select.Option>
+            <Select.Option value="speech_therapist">Speech Therapist</Select.Option>
+            <Select.Option value="dentist">Dentist</Select.Option>
+          </Select>
         </div>
       </div>
       <div className="emergency-locations__container">
@@ -129,4 +146,4 @@ function EmergencyLocations() {
   );
 }
 
-export default EmergencyLocations;
+export default UsefulLocations;

@@ -36,7 +36,7 @@ import LabAdminRegistration from './screens/SignUp/LabAdminRegistration'
 import LabApp from './screens/SignUp/LabApp'
 import Specialities from './screens/Specialities';
 import Services from './screens/Services';
-import EmergencyLocations from './screens/EmergencyLocations';
+import UsefulLocations from './screens/UsefulLocations';
 import 'tachyons';
 import SkinCancerMlPage from './screens/skinCancerMlPage';
 import BreastDisease from './screens/Prediction/BreastDisease/BreastDisease';
@@ -274,7 +274,7 @@ class App extends Component {
           <Route path="/patientServices" element={<PatientService/>} />
           <Route path="/services" element={<Services />} />
           <Route path="/serviceshomepage" element={<ServicesHomePage />} />
-          <Route path="/emergencyLocations" element={<EmergencyLocations />} />
+          <Route path="/usefulLocations" element={<UsefulLocations />} />
           <Route path="/liverdiseaseML" element={<Liver_disease_ML />} />
           <Route path="/VoiceRecoginition" element={<VoiceRecoginition />} />
           <Route path="/Chatbot" element={<Chatbot userInfo={this.state.user}/>}/>

@@ -15,6 +15,7 @@ class Header extends React.Component {
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/specialities">Specialities</Link></li>
+        <li><Link to="/usefulLocations">Healthcare Useful Locations</Link></li>
         <li><Link to="/AboutUs">About Us</Link></li>
         <li><Link to="/contact">Contact US</Link></li>
         {type ==='Doctor' ? (<>
