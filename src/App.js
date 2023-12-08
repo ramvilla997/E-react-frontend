@@ -2,6 +2,7 @@ import React from 'react';
 import { Component } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './screens/LandingPage';
+import LandingPageHome from './screens/LandingPageHome';
 import DBConnection from './screens/DBConnection';
 import Contact from './screens/Contact';
 import JoinUs from './screens/JoinUs';
@@ -213,6 +214,7 @@ class App extends Component {
 
         <Routes>
           <Route path="/" element={<LandingPage />} />
+          <Route path="/LandingPageHome" element={<LandingPageHome />} />
           <Route path="/ViewRating" element={<ViewRating />} />
           <Route path="/LogIn" element={this.state.user.type === 'NotLoggedIn' ? <LogIn loadUser={this.loadUser} loadTempUser = {this.loadTempUser} /> : <Navigate to={`${this.state.user.startInPage}`} />} />
           <Route path="/SignUp" element={this.state.user.type === 'NotLoggedIn' ? <SignUp loadUser={this.loadUser} /> : <Navigate to={`${this.state.user.startInPage}`} />} />
