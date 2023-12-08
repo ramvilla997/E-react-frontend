@@ -98,7 +98,7 @@ const ModalFour = ({ closeFn = () => null, open = false }) => {
         className="button"
         onClick={() => {window.location.href="//e-react-frontend-55dbf7a5897e.herokuapp.com/"}}
       >
-        Open React: Visit React platform
+        Open React: Visit React platform!
       </button>
       </div>
           
