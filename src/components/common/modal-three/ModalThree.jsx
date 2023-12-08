@@ -118,7 +118,7 @@ const ModalThree = ({ closeFn = () => null, open = false }) => {
             <button
         type="button"
         className="save-button3"
-        onClick={() => {window.location.href="//www.e-hospital.ca/index"}}
+        onClick={() => {window.location.href="//e-react-frontend-55dbf7a5897e.herokuapp.com/"}}
         //onClick={() => navigate("/")}
        // onClick={<Link to="/" onClick={this.forceUpdate} style={{ color: '#A4A4A4'}}>Dashboard</Link>}
       >

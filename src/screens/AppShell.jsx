@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import AppHeader from './AppHeader';
-import AppFooter from './AppFooter';
+// import AppHeader from './AppHeader';
+// import AppFooter from './AppFooter';
 
 import ScreenSwitchboard from './ScreenSwitchboard';
 import LandingPageVideo from '../styles/screens/LandingPageVideo';
