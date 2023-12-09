@@ -113,6 +113,19 @@ class LogIn extends React.Component{
           else{this.props.loadTempUser(new_user)}
         } 
       }
+      else if(this.state.selectedOption==='Clinic'){
+        if(user.id){
+          let new_user = {
+            type: 'Clinic',
+            id: user.id,
+            name: user.Fname,
+            email: user.EmailId,
+            startInPage: '/clinicalstaff',
+          };
+          if(this.state.rememberMe){this.props.loadUser(new_user);this.setState({rememberMe: false})}
+          else{this.props.loadTempUser(new_user)}
+        } 
+      }
       else{
         if(user.id){
           let new_user = {
@@ -174,6 +187,13 @@ class LogIn extends React.Component{
                     onClick={() => this.onOptionChange('Hospital')}
                   >
                     Hospital
+                  </button>
+                  <button
+                    type="button"
+                    className={`optionButton ${this.state.selectedOption === 'Clinic' ? 'selected' : ''}`}
+                    onClick={() => this.onOptionChange('Clinic')}
+                  >
+                    Clinic Staff
                   </button>
                 </div>
                 <label>Email Address</label>
