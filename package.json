@@ -21,6 +21,7 @@
     "axios": "^1.6.2",
     "cors-anywhere": "^0.4.4",
     "font-awesome": "^4.7.0",
+    "framer-motion": "^10.16.16",
     "livereload-js": "^4.0.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
