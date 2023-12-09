@@ -23,7 +23,7 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Book Appointment"  />
     </ListItemButton>
-    <ListItemButton component={Link} >
+    <ListItemButton component={Link} to={"/profile"}>
       <ListItemIcon>
         <AccountBoxIcon />
       </ListItemIcon>
